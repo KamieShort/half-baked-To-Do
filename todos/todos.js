@@ -1,9 +1,6 @@
 import {
-    // checkAuth,
-    redirectIfLoggedIn,
-    signInUser,
-    signupUser,
-    // createToDo,
+    checkAuth,
+    createToDo,
     completeToDo,
     // deleteAllTodos,
     getTodos,
@@ -12,49 +9,16 @@ import {
 
 import { renderToDo } from '../render-utils.js';
 
-// checkAuth();
+checkAuth();
 
-const logoutButton = document.getElementById('logout');
-const signInForm = document.getElementById('sign-in');
-const signInEmail = document.getElementById('sign-in-email');
-const signInPassword = document.getElementById('sign-in-password');
+// const todosEl = document.querySelector('.todos');
+const form = document.querySelector('.todo-form');
+const logoutButton = document.querySelector('#logout');
+const deleteButton = document.querySelector('.delete-button');
 
-const signUpForm = document.getElementById('sign-up');
-const signUpEmail = document.getElementById('sign-up-email');
-const signUpPassword = document.getElementById('sign-up-password');
-
-// if user currently logged in, redirect
-// redirectIfLoggedIn();
-
-logoutButton.addEventListener('click', () => {
-    logout();
-});
-
-signUpForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const user = await signupUser(signUpEmail.value, signUpPassword.value);
-
-    if (user) {
-        redirectIfLoggedIn();
-    } else {
-        console.error(user);
-    }
-});
-
-signInForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const user = await signInUser(signInEmail.value, signInPassword.value);
-
-    if (user) {
-        redirectIfLoggedIn();
-    } else {
-        console.error(user);
-    }
-});
-
-export async function renderToDos() {
-    const toDoslist = document.getElementById('todo-list');
-    toDoslist.textContent = '';
+async function renderToDos() {
+    const toDosList = document.getElementById('todo-list');
+    toDosList.textContent = '';
     const todos = await getTodos();
     for (let todo of todos) {
         const li = renderToDo(todo);
@@ -62,7 +26,25 @@ export async function renderToDos() {
             await completeToDo(todo.id);
             renderToDos();
         });
-        toDoslist.append(li);
+        toDosList.append(li);
     }
 }
 renderToDos();
+
+// on submit, create a todo, reset the form, and display the todos
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    await createToDo(data.get('description'));
+    renderToDos();
+    form.reset();
+});
+
+logoutButton.addEventListener('click', () => {
+    logout();
+});
+
+deleteButton.addEventListener('click', async () => {
+    // delete all todos
+    // then refetch and display the updated list of todos
+});

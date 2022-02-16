@@ -1,36 +1,31 @@
-import { renderToDos } from "../render-utils.js";
-
+import { renderToDo } from '../render-utils.js';
 
 const test = QUnit.test;
 
-test('completed test will return <li', (expect) => {
+test('completed todo will return a <li> with a complete class', (expect) => {
     //Arrange
     // Set up your arguments and expectations
-    const expected = true;
-    
-    //Act 
-    // Call the function you're testing and set the result to a const
-    const actual = renderToDos(todo){
+    const expected = `<li class="complete">file taxes</li>`;
 
-    };
+    //Act
+    // Call the function you're testing and set the result to a const
+    const actual = renderToDo({ description: 'file taxes', complete: true });
 
     //Expect
     // Make assertions about what is expected versus the actual result
-    expect.equal(actual, expected);
+    expect.equal(actual.outerHTML, expected);
 });
 
-test('incomplete test will return <li', (expect) => {
+test('incompleted todo will return a <li> with a complete class', (expect) => {
     //Arrange
     // Set up your arguments and expectations
-    const expected = true;
-    
-    //Act 
+    const expected = `<li>get groceries</li>`;
+
+    //Act
     // Call the function you're testing and set the result to a const
-    const actual = renderToDos(todo){
-        
-    };
+    const actual = renderToDo({ description: 'get groceries', complete: false });
 
     //Expect
     // Make assertions about what is expected versus the actual result
-    expect.equal(actual, expected);
+    expect.equal(actual.outerHTML, expected);
 });

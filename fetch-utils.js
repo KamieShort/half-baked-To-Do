@@ -19,6 +19,7 @@ export async function createToDo(description) {
 // get all todos for this user from supabase
 export async function getTodos() {
     const resp = await client.from('todos').select().order('id');
+    console.log(resp);
     return checkError(resp);
 }
 
@@ -40,7 +41,7 @@ export async function checkAuth() {
 
 export async function redirectIfLoggedIn() {
     if (await getUser()) {
-        location.replace('./todos');
+        location.replace('/todos');
     }
 }
 
