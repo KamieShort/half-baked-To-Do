@@ -2,7 +2,7 @@ import {
     checkAuth,
     createToDo,
     completeToDo,
-    // deleteAllTodos,
+    deleteAllTodos,
     getTodos,
     logout,
 } from '../fetch-utils.js';
@@ -35,7 +35,8 @@ renderToDos();
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = new FormData(form);
-    await createToDo(data.get('description'));
+    const todo = data.get('todo');
+    await createToDo(todo);
     renderToDos();
     form.reset();
 });
@@ -44,7 +45,9 @@ logoutButton.addEventListener('click', () => {
     logout();
 });
 
+// delete all todos
+// then refetch and display the updated list of todos
 deleteButton.addEventListener('click', async () => {
-    // delete all todos
-    // then refetch and display the updated list of todos
+    await deleteAllTodos();
+    renderToDos();
 });

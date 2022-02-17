@@ -11,7 +11,7 @@ x add rows of data
 # Display To-Do Page
 
 x should have user id (foreign key), and ID, completion status, description.
-Event Listeners: on load-fetch supabase data(window.eventlistener), on click complete To-Do, submit form-create to do, delete to-do's.
+x Event Listeners: on load-fetch supabase data(window.eventlistener), on click complete To-Do, submit form-create to do, delete to-do's.
 
 Functions; fetch To-Dos and render to-Do's (loops through and appends). TDD render function.
 add CSS to show complete and not complete to-do
