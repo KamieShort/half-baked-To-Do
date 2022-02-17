@@ -24,6 +24,7 @@ async function renderToDos() {
         const li = renderToDo(todo);
         li.addEventListener('click', async () => {
             await completeToDo(todo.id);
+            console.log('click');
             renderToDos();
         });
         toDosList.append(li);
